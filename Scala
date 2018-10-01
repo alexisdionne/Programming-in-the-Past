@@ -1,0 +1,29 @@
+object CaesarCipher {
+  private val upper = 'A' to 'Z'
+  private val lower = 'a' to 'z'
+ 
+  def encode(text:String, key:Int) = text.map {
+    case c if upper.contains(c) => rotate(upper, c, key)
+    case c if lower.contains(c) => rotate(lower, c, key)
+    case c => c
+  }
+  
+  def decode(text:String, key:Int) = encode(text,-key)
+  
+  private def rotate(a:IndexedSeq[Char], c:Char, key:Int)=a((c-a.head+key+a.size)%a.size)
+  
+  def solve(text:String, maxShift:Int) = Unit {
+      for(i <- maxShift to 0 by -1){
+          println("Caesar " + i + ": " + decode(text, i))
+      }
+  }
+
+   def main(args: Array[String]) {
+       println("Text")
+        val text="The five boxing wizards jump quickly"
+        println("Plaintext  => " + text)
+        val encoded = CaesarCipher.encode(text, 3)
+        println("Ciphertext => " + encoded)
+        println("Decrypted  => " + CaesarCipher.decode(encoded, 3))
+   }
+}
