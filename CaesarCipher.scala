@@ -1,12 +1,4 @@
 object CaesarCipher {
-  private val upper = 'A' to 'Z'
-  private val lower = 'a' to 'z'
-
-  /*def encode(text:String, key:Int) = text.map({
-      case c if upper.contains(c) => rotate(upper, c, key)
-      case c if lower.contains(c) => rotate(lower, c, key)
-      case c => c
-    })*/
 
   def encode(text:String, key:Int) : String = for (c <- text) yield (rotate(c, key))
 
@@ -14,13 +6,13 @@ object CaesarCipher {
 
   private def rotate(c:Char, key:Int): Char = {
     if ((c <= 90 && c >= 65)) { // upper case
-      if (c + key < 65) (c + key +26).toChar
+      if (c + key < 65) (c + key +26).toChar // if it falls off the front end during decode
       else {
-        if ((c.toInt + key) % 91 <= key) (65 + ((c.toInt + key) % 91)).toChar
-        else ((c.toInt + key) % 91).toChar
+        if ((c.toInt + key) % 91 <= key) (65 + ((c.toInt + key) % 91)).toChar // wrap around the back end
+        else ((c.toInt + key) % 91).toChar // move along to the right through the letters
       }
     }
-    else return c
+    else return c // otherwise return the space or other character
   }
 
   def solve(text:String, maxShift:Int){
