@@ -17,7 +17,7 @@ object CaesarCipher {
 
   def solve(text:String, maxShift:Int){
     for(i <- maxShift to 0 by -1){
-      println("Caesar " + i + ": " + encode(text, i))
+      println("CaesarCipher " + i + ": " + encode(text, i))
     }
   }
 
